@@ -12,7 +12,7 @@ class Api::EventsController < ApplicationController
   
     def create
       @event = Event.new(event_params)
-  
+    
       if @event.save
         render json: @event, status: :created
       else
@@ -33,11 +33,11 @@ class Api::EventsController < ApplicationController
     end
   
     private
-  
     def set_event
       @event = Event.find(params[:id])
     end
-  
+    
+      # 許可するパラメータをprivateメソッドでカプセル化
     def event_params
       params.require(:event).permit(
         :id,
