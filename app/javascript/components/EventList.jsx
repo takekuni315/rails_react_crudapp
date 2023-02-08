@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types'
-
+/* 処理の全体の概要は、イベントオブジェクトの配列をeventsパラメータが受け取り、renderEventsでソート後、
+各イベントリスト項目をレンダリング */
 const EventList = ({ events }) => {
     const renderEvents = (eventArray) => {
-        // renderEventsは、配列を日付の降順でソートしてから、各イベントのリスト項目をレンダリング
+        // 配列を日付の降順でソートしてから、各イベントのリスト項目をレンダリング
       eventArray.sort((a, b) => new Date(b.event_date) - new Date(a.event_date));
   
       return eventArray.map((event) => (
@@ -22,7 +23,7 @@ const EventList = ({ events }) => {
       </section>
     );
   };
-  
+  // イベントリストの型情報定義
   EventList.propTypes = {
     events: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
