@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Link } from 'react-router-dom';
 /* 処理の全体の概要は、イベントオブジェクトの配列をeventsパラメータが受け取り、renderEventsでソート後、
 各イベントリスト項目をレンダリング */
 const EventList = ({ events }) => {
@@ -8,9 +10,11 @@ const EventList = ({ events }) => {
     eventArray.sort((a, b) => new Date(b.event_date) - new Date(a.event_date));
     return eventArray.map((event) => (
       <li key={event.id}>
-        {event.event_date}
-        {' - '}
-        {event.event_type}
+        <Link to={`/events/${event.id}`}>
+          {event.event_date}
+          {' - '}
+          {event.event_type}
+        </Link>
       </li>
     ));
   };
