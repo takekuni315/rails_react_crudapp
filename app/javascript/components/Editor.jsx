@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -32,19 +33,21 @@ const Editor = () => {
   return (
     <>
       <Header />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <EventList events={events} />
+      <div className="grid">
+        {isLoading ? (
+          // eslint-disable-next-line react/no-unknown-property
+          <p className="loading">Loading...</p>
+        ) : (
+          <>
+            <EventList events={events} />
 
-          <Routes>
-            <Route path=":id" element={<Event events={events} />} />
-          </Routes>
-        </>
-      )}
+            <Routes>
+              <Route path=":id" element={<Event events={events} />} />
+            </Routes>
+          </>
+        )}
+      </div>
     </>
   );
 };
-
 export default Editor;
