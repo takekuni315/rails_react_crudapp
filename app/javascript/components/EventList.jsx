@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Link, NavLink } from 'react-router-dom';
+
 /* 処理の全体の概要は、イベントオブジェクトの配列をeventsパラメータが受け取り、renderEventsでソート後、
 各イベントリスト項目をレンダリング */
 const EventList = ({ events }) => {
@@ -20,7 +21,10 @@ const EventList = ({ events }) => {
   };
   return (
     <section className="eventList">
-      <h2>Events</h2>
+      <h2>
+        Events
+        <Link to="/events/new">New Event</Link>
+      </h2>
       <ul>{renderEvents(events)}</ul>
     </section>
   );
