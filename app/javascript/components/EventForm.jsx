@@ -1,9 +1,13 @@
 /* eslint-disable no-shadow */
-import React, { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { isEmptyObject, validateEvent } from '../helpers/helpers';
+import React, { useState, useRef, useEffect } from 'react';
+import Pikaday from 'pikaday';
+import PropTypes from 'prop-types';
 
-const EventForm = () => {
+import 'pikaday/css/pikaday.css';
+// eslint-disable-next-line no-unused-vars
+import { formatDate, isEmptyObject, validateEvent } from '../helpers/helpers';
+
+const EventForm = ({ onSave }) => {
   const [event, setEvent] = useState({
     event_type: '',
     event_date: '',
@@ -14,42 +18,20 @@ const EventForm = () => {
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const dateInput = useRef(null);
+
+  const updateEvent = (key, value) => {
+    setEvent((preEvent) => ({ ...preEvent, [key]: value }));
+  };
 
   const handleInputChange = (e) => {
     const { target } = e;
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
-    setEvent({ ...event, [name]: value });
+    updateEvent(name, value);
+    // setEvent({ ...event, [name]: value });
   };
-
-  // const validateEvent = () => {
-  //   const errors = {};
-
-  //   if (event.event_type === '') {
-  //     errors.event_type = 'You must enter an event type';
-  //   }
-
-  //   if (event.event_date === '') {
-  //     errors.event_date = 'You must enter a valid date';
-  //   }
-
-  //   if (event.title === '') {
-  //     errors.title = 'You must enter a title';
-  //   }
-
-  //   if (event.speaker === '') {
-  //     errors.speaker = 'You must enter at least one speaker';
-  //   }
-
-  //   if (event.host === '') {
-  //     errors.host = 'You must enter at least one host';
-  //   }
-
-  //   return errors;
-  // };
-
-  // const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
   const renderErrors = () => {
     if (isEmptyObject(formErrors)) {
@@ -58,7 +40,7 @@ const EventForm = () => {
 
     return (
       <div className="errors">
-        <h3>The following errors prohibited the event from being saved:</h3>
+        <h3>以下の項目のエラーにより、イベントの登録ができませんでした。</h3>
         <ul>
           {Object.values(formErrors).map((formError) => (
             <li key={formError}>{formError}</li>
@@ -67,7 +49,21 @@ const EventForm = () => {
       </div>
     );
   };
+  // useEffectで、コンポーネントがマウントされたときに、datepickerを初期化
+  useEffect(() => {
+    const p = new Pikaday({
+      field: dateInput.current,
+      onSelect: (date) => {
+        const formattedDate = formatDate(date);
+        dateInput.current.value = formattedDate;
+        updateEvent('event_date', formattedDate);
+      },
+    });
+    // クリーンアップ用の関数を返す
+    return () => p.destroy();
+  }, []);
 
+  // ユーザー入力をバリデーションし、不足がある場合は、エラーメッセージを、正常な場合は、イベントをコンソールログに出力
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateEvent(event);
@@ -75,7 +71,7 @@ const EventForm = () => {
     if (!isEmptyObject(errors)) {
       setFormErrors(errors);
     } else {
-      console.log(event);
+      onSave(event);
     }
   };
 
@@ -103,6 +99,8 @@ const EventForm = () => {
               type="text"
               id="event_date"
               name="event_date"
+              ref={dateInput}
+              autoComplete="off"
               onChange={handleInputChange}
             />
           </label>
@@ -161,3 +159,7 @@ const EventForm = () => {
 };
 
 export default EventForm;
+
+EventForm.propTypes = {
+  onSave: PropTypes.func.isRequired,
+};
