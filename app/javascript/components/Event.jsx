@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useParams } from 'react-router-dom';
 
-const Event = ({ events }) => {
+// eslint-disable-next-line react/prop-types
+const Event = ({ events, onDelete }) => {
   const { id } = useParams();
   const event = events.find((e) => e.id === Number(id));
 
@@ -14,6 +15,13 @@ const Event = ({ events }) => {
         {event.event_date}
         {' - '}
         {event.event_type}
+        <button
+          className="delete"
+          type="button"
+          onClick={() => onDelete(event.id)}
+        >
+          Delte
+        </button>
       </h2>
       <ul>
         <li>
