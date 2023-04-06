@@ -63,7 +63,7 @@ const EventForm = ({ onSave }) => {
     return () => p.destroy();
   }, []);
 
-  // ユーザー入力をバリデーションし、不足がある場合は、エラーメッセージを、正常な場合は、イベントをコンソールログに出力
+  // ユーザー入力をバリデーションし、不足がある場合は、エラーメッセージを出力。正常な場合は、イベントをコンソールログに出力
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateEvent(event);
@@ -73,6 +73,7 @@ const EventForm = ({ onSave }) => {
     } else {
       onSave(event);
     }
+    console.log(event);
   };
 
   return (
