@@ -56,6 +56,27 @@ const Editor = () => {
     }
   };
 
+  // イベント削除の処理をするファンクション
+  const deleteEvent = async (eventID) => {
+    const sure = window.confirm('本当に削除しますか？');
+
+    if (sure) {
+      try {
+        const response = await window.fetch(`/api/events/${eventID}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) throw Error(response.statusText);
+
+        window.alert('イベントを削除しました!');
+        navigate('/events');
+        setEvents(events.filter((event) => event.id !== eventID));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   // データのフェッチが終了したら、isLoadingをfalseに設定される。
   return (
     <>
@@ -70,7 +91,7 @@ const Editor = () => {
 
             <Routes>
               <Route path="new" element={<EventForm onSave={addEvent} />} />
-              <Route path=":id" element={<Event events={events} />} />
+              <Route path=":id" element={<Event events={events} onDelete={deleteEvent} />} />
             </Routes>
           </>
         )}
