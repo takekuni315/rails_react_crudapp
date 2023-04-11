@@ -8,6 +8,8 @@ import EventList from './EventList';
 import Event from './Event';
 // eslint-disable-next-line import/no-named-as-default
 import EventForm from './EventForm';
+import { success } from '../helpers/notifications';
+import { handleAjaxError } from '../helpers/helpers';
 
 // 全体の処理の概要として、APIに接続し、イベントリストを取得し、それをEventListに渡してWebページ上に表示できるようにしている。
 const Editor = () => {
@@ -25,8 +27,9 @@ const Editor = () => {
         const data = await response.json();
         setEvents(data);
       } catch (error) {
-        setIsError(true);
-        console.error(error);
+        // setIsError(true);
+        // console.error(error);
+        handleAjaxError(error);
       }
       setIsLoading(false);
     };
@@ -49,10 +52,12 @@ const Editor = () => {
       const savedEvent = await response.json();
       const newEvents = [...events, savedEvent];
       setEvents(newEvents);
-      window.alert('イベントを追加しました！');
+      // window.alert('イベントを追加しました！');
+      success('イベントを追加しました！');
       navigate(`/events/${savedEvent.id}`);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      handleAjaxError(error);
     }
   };
 
@@ -68,11 +73,13 @@ const Editor = () => {
 
         if (!response.ok) throw Error(response.statusText);
 
-        window.alert('イベントを削除しました!');
+        // window.alert('イベントを削除しました!');
+        success('イベントを削除しました！');
         navigate('/events');
         setEvents(events.filter((event) => event.id !== eventID));
       } catch (error) {
-        console.error(error);
+        // console.error(error);
+        handleAjaxError(error);
       }
     }
   };
