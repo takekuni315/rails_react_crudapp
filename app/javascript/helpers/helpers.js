@@ -1,3 +1,5 @@
+import { error } from './notifications';
+
 export const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
 export const validateEvent = (event) => {
@@ -24,6 +26,11 @@ export const validateEvent = (event) => {
   }
 
   return errors;
+};
+
+export const handleAjaxError = (err) => {
+  error('Something went wrong');
+  console.error(err);
 };
 // Dateオブジェクトを受け取って、YYYY-MM_DD形式の文字を返す
 export const formatDate = (d) => {
