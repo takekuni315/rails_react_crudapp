@@ -1,4 +1,7 @@
-class Api::EventsController < ApplicationController
+# frozen_string_literal: true
+
+module Api
+  class EventsController < ApplicationController
     before_action :set_event, only: %i[show update destroy]
 
     def index
@@ -12,7 +15,7 @@ class Api::EventsController < ApplicationController
 
     def create
       @event = Event.new(event_params)
-
+      # binding.pry
       if @event.save
         render json: @event, status: :created
       else
@@ -33,11 +36,12 @@ class Api::EventsController < ApplicationController
     end
 
     private
+
     def set_event
       @event = Event.find(params[:id])
     end
 
-      # 許可するパラメータをprivateメソッドでカプセル化
+    # 許可するパラメータをprivateメソッドでカプセル化
     def event_params
       params.require(:event).permit(
         :id,
@@ -52,3 +56,4 @@ class Api::EventsController < ApplicationController
       )
     end
   end
+end
