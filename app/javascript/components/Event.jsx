@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const Event = ({ events, onDelete }) => {
@@ -13,34 +13,34 @@ const Event = ({ events, onDelete }) => {
     <div className="eventContainer">
       <h2>
         {event.event_date}
-        {' - '}
+        {" - "}
         {event.event_type}
         <button
           className="delete"
           type="button"
           onClick={() => onDelete(event.id)}
         >
-          Delte
+          イベント削除
         </button>
       </h2>
       <ul>
         <li>
-          <strong>Type:</strong> {event.event_type}
+          <strong>イベント類:</strong> {event.event_type}
         </li>
         <li>
-          <strong>Date:</strong> {event.event_date}
+          <strong>開催日付:</strong> {event.event_date}
         </li>
         <li>
-          <strong>Title:</strong> {event.title}
+          <strong>イベント名:</strong> {event.title}
         </li>
         <li>
-          <strong>Speaker:</strong> {event.speaker}
+          <strong>スピーカー:</strong> {event.speaker}
         </li>
         <li>
-          <strong>Host:</strong> {event.host}
+          <strong>開催者:</strong> {event.host}
         </li>
         <li>
-          <strong>Published:</strong> {event.published ? 'yes' : 'no'}
+          <strong>公開:</strong> {event.published ? "yes" : "no"}
         </li>
       </ul>
     </div>
@@ -57,7 +57,7 @@ Event.propTypes = {
       speaker: PropTypes.string.isRequired,
       host: PropTypes.string.isRequired,
       published: PropTypes.bool.isRequired,
-    }),
+    })
   ).isRequired,
 };
 

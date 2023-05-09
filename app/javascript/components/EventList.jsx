@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
 
 /* 処理の全体の概要は、イベントオブジェクトの配列をeventsパラメータが受け取り、renderEventsでソート後、
 各イベントリスト項目をレンダリング */
@@ -13,7 +13,7 @@ const EventList = ({ events }) => {
       <li key={event.id}>
         <NavLink to={`/events/${event.id}`}>
           {event.event_date}
-          {' - '}
+          {" - "}
           {event.event_type}
         </NavLink>
       </li>
@@ -22,24 +22,26 @@ const EventList = ({ events }) => {
   return (
     <section className="eventList">
       <h2>
-        Events
-        <Link to="/events/new">New Event</Link>
+        イベント
+        <Link to="/events/new">新規イベント追加</Link>
       </h2>
       <ul>{renderEvents(events)}</ul>
     </section>
   );
 };
-  // イベントリストの型情報定義
+// イベントリストの型情報定義
 EventList.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    event_type: PropTypes.string,
-    event_date: PropTypes.string,
-    title: PropTypes.string,
-    speaker: PropTypes.string,
-    host: PropTypes.string,
-    published: PropTypes.bool,
-  })).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      event_type: PropTypes.string,
+      event_date: PropTypes.string,
+      title: PropTypes.string,
+      speaker: PropTypes.string,
+      host: PropTypes.string,
+      published: PropTypes.bool,
+    })
+  ).isRequired,
 };
 
 export default EventList;

@@ -1,19 +1,19 @@
 /* eslint-disable no-shadow */
-import React, { useState, useRef, useEffect } from 'react';
-import Pikaday from 'pikaday';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from "react";
+import Pikaday from "pikaday";
+import PropTypes from "prop-types";
 
-import 'pikaday/css/pikaday.css';
+import "pikaday/css/pikaday.css";
 // eslint-disable-next-line no-unused-vars
-import { formatDate, isEmptyObject, validateEvent } from '../helpers/helpers';
+import { formatDate, isEmptyObject, validateEvent } from "../helpers/helpers";
 
 const EventForm = ({ onSave }) => {
   const [event, setEvent] = useState({
-    event_type: '',
-    event_date: '',
-    title: '',
-    speaker: '',
-    host: '',
+    event_type: "",
+    event_date: "",
+    title: "",
+    speaker: "",
+    host: "",
     published: false,
   });
 
@@ -27,10 +27,10 @@ const EventForm = ({ onSave }) => {
   const handleInputChange = (e) => {
     const { target } = e;
     const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
 
-    updateEvent(name, value);
-    // setEvent({ ...event, [name]: value });
+    // updateEvent(name, value);
+    setEvent({ ...event, [name]: value });
   };
 
   const renderErrors = () => {
@@ -56,7 +56,7 @@ const EventForm = ({ onSave }) => {
       onSelect: (date) => {
         const formattedDate = formatDate(date);
         dateInput.current.value = formattedDate;
-        updateEvent('event_date', formattedDate);
+        updateEvent("event_date", formattedDate);
       },
     });
     // クリーンアップ用の関数を返す
@@ -80,11 +80,11 @@ const EventForm = ({ onSave }) => {
     <section>
       {renderErrors()}
 
-      <h2>New Event</h2>
+      <h2>新規イベント追加</h2>
       <form className="eventForm" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="event_type">
-            <strong>Type:</strong>
+            <strong>イベント類:</strong>
             <input
               type="text"
               id="event_type"
@@ -95,7 +95,7 @@ const EventForm = ({ onSave }) => {
         </div>
         <div>
           <label htmlFor="event_date">
-            <strong>Date:</strong>
+            <strong>開催日付:</strong>
             <input
               type="text"
               id="event_date"
@@ -108,7 +108,7 @@ const EventForm = ({ onSave }) => {
         </div>
         <div>
           <label htmlFor="title">
-            <strong>Title:</strong>
+            <strong>イベント名:</strong>
             <textarea
               cols="30"
               rows="10"
@@ -120,7 +120,7 @@ const EventForm = ({ onSave }) => {
         </div>
         <div>
           <label htmlFor="speaker">
-            <strong>Speakers:</strong>
+            <strong>スピーカー:</strong>
             <input
               type="text"
               id="speaker"
@@ -131,7 +131,7 @@ const EventForm = ({ onSave }) => {
         </div>
         <div>
           <label htmlFor="host">
-            <strong>Hosts:</strong>
+            <strong>開催者:</strong>
             <input
               type="text"
               id="host"
@@ -142,7 +142,7 @@ const EventForm = ({ onSave }) => {
         </div>
         <div>
           <label htmlFor="published">
-            <strong>Publish:</strong>
+            <strong>公開:</strong>
             <input
               type="checkbox"
               id="published"
@@ -152,7 +152,7 @@ const EventForm = ({ onSave }) => {
           </label>
         </div>
         <div className="form-actions">
-          <button type="submit">Save</button>
+          <button type="submit">登録</button>
         </div>
       </form>
     </section>
